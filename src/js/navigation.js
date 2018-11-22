@@ -1,4 +1,15 @@
-;(function () {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+
+        // AMD. Register as an anonymous module.
+        define([
+            "jquery",
+        ], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     var template = '' +
         '<div class="datepicker--nav-action" data-action="prev">#{prevHtml}</div>' +
         '<div class="datepicker--nav-title">#{title}</div>' +
@@ -142,4 +153,4 @@
         }
     }
 
-})();
+}));
