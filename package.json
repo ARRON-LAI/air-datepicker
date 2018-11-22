@@ -1,5 +1,5 @@
 {
-  "name": "air-datepicker",
+  "name": "air-datepicker-amd",
   "version": "2.2.3",
   "devDependencies": {
     "autoprefixer": "^6.1.0",
@@ -44,7 +44,7 @@
     "customizable",
     "powerful"
   ],
-  "author": "t1m0n <t1m0n.tr@gmail.com>",
+  "author": "arron <arron.laihongwei@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ARRON-LAI/air-datepicker/issues"

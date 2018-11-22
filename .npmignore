@@ -5,3 +5,5 @@ bower_components
 bower.json
 static-server.js
 visual-tests.html
+gulpfile.js
+.bowerrc
