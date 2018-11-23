@@ -1,4 +1,15 @@
-;(function (window, $, undefined) { ;(function () {
+;(function (window, $, undefined) { (function (factory) {
+    if (typeof define === "function" && define.amd) {
+
+        // AMD. Register as an anonymous module.
+        define([
+            "jquery",
+        ], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     var VERSION = '2.2.3',
         pluginName = 'datepicker',
         autoInitSelector = '.datepicker-here',
@@ -1489,10 +1500,20 @@
     $(function () {
         $(autoInitSelector).datepicker();
     })
+}));
 
-})();
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
 
-;(function () {
+        // AMD. Register as an anonymous module.
+        define([
+            "jquery",
+        ], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     var templates = {
         days:'' +
         '<div class="datepicker--days datepicker--body">' +
@@ -1802,9 +1823,20 @@
             this._handleClick.bind(this)($el);
         }
     };
-})();
+}));
 
-;(function () {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+
+        // AMD. Register as an anonymous module.
+        define([
+            "jquery",
+        ], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     var template = '' +
         '<div class="datepicker--nav-action" data-action="prev">#{prevHtml}</div>' +
         '<div class="datepicker--nav-title">#{title}</div>' +
@@ -1948,9 +1980,20 @@
         }
     }
 
-})();
+}));
 
-;(function () {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+
+        // AMD. Register as an anonymous module.
+        define([
+            "jquery",
+        ], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     var template = '<div class="datepicker--time">' +
         '<div class="datepicker--time-current">' +
         '   <span class="datepicker--time-current-hours">#{hourVisible}</span>' +
@@ -2232,5 +2275,5 @@
             this.d.timepickerIsActive = false;
         }
     };
-})();
+}));
  })(window, jQuery);
