@@ -24,7 +24,7 @@ $('.my-datepicker').datepicker([options])
 
 ## Change log
 
-### v2.2.5
+### v2.3.0
 * support AMD for datepicker.en.js; fix the bug that when 'showOtherMonths' = false and other-month cell is still clickable.
 * 
 ### v2.2.4
