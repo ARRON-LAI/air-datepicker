@@ -7,6 +7,6 @@ var gulp = require('gulp'),
 
 module.exports = function () {
     gulp.src('src/js/i18n/*.js')
-        .pipe(wrap(';(function ($) { <%=contents%> })(jQuery);'))
+        // .pipe(wrap(';(function ($) { <%=contents%> })(jQuery);'))
         .pipe(gulp.dest('dist/js/i18n'))
 };
