@@ -1226,6 +1226,8 @@
             var $cell = $(e.target).closest('.datepicker--cell'),
                 date = this._getDateFromCell($cell);
 
+            if ($cell.hasClass('-other-month-') && !this.opts.showOtherMonths) return;
+
             // Prevent from unnecessary rendering and setting new currentDate
             this.silent = true;
 
