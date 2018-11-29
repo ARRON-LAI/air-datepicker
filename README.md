@@ -24,6 +24,9 @@ $('.my-datepicker').datepicker([options])
 
 ## Change log
 
+### v2.4.0
+* refine build tasks for i18n so that jQuery won't be assumed as global variable; fix the bug that disabled navigation button (prev/next) is still clickable when change style to 'visibility = visible'.
+* 
 ### v2.3.0
 * support AMD for datepicker.en.js; fix the bug that when 'showOtherMonths' = false and other-month cell is still clickable.
 * 

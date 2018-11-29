@@ -139,6 +139,8 @@
             var $el = $(e.target).closest('[data-action]'),
                 action = $el.data('action');
 
+            if (($el).hasClass('-disabled-')) return;
+
             this.d[action]();
         },
 
