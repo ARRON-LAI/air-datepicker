@@ -869,6 +869,7 @@
 
         _changeView: function (date, dir) {
             date = date || this.focused || this.date;
+            var o = this.opts;
 
             var nextView = dir == 'up' ? this.viewIndex + 1 : this.viewIndex - 1;
             if (nextView > 2) nextView = 2;
@@ -878,6 +879,10 @@
             this.date = new Date(date.getFullYear(), date.getMonth(), 1);
             this.silent = false;
             this.view = this.viewIndexes[nextView];
+
+            if (nextView === 0) {
+                o.onChangeMonth(this.date.getMonth(), this.date.getFullYear(), this);
+            }
 
         },
 
