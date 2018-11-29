@@ -198,6 +198,7 @@
             this.$el.on('clickCell.adp', this._onClickCell.bind(this));
             this.$datepicker.on('mouseenter', '.datepicker--cell', this._onMouseEnterCell.bind(this));
             this.$datepicker.on('mouseleave', '.datepicker--cell', this._onMouseLeaveCell.bind(this));
+            this.$datepicker.on('mouseleave', '.datepicker--cells', this._onMouseLeaveBody.bind(this));
 
             this.inited = true;
         },
@@ -1259,6 +1260,19 @@
             this.silent = true;
             this.focused = '';
             this.silent = false;
+        },
+
+        _onMouseLeaveBody: function (e) {
+            var $cell = $(e.target).closest('.datepicker--cell');
+
+            $cell.removeClass('-focus-');
+
+            this.silent = true;
+            this.focused = '';
+            this.silent = false;
+            this.views[this.currentView]._update();
+            var sibling = this.$el.siblings('.a-datepicker').data('datepicker');
+            sibling.views[sibling.currentView]._updatePair();
         },
 
         _onTimeChange: function (e, h, m) {

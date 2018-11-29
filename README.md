@@ -24,6 +24,8 @@ $('.my-datepicker').datepicker([options])
 
 ## Change log
 
+### v2.4.1
+* refine datepicker to update view when mouse leave datepicker content body, so that 'in-range' classes won't be preserved when the mouse is no longer hover on datepicker after selecting one date when 'range' = true.
 ### v2.4.0
 * refine build tasks for i18n so that jQuery won't be assumed as global variable; fix the bug that disabled navigation button (prev/next) is still clickable when change style to 'visibility = visible'.
 * 
