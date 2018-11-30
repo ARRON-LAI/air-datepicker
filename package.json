@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ARRON-LAI/air-datepicker.git"
+    "url": "git+https://github.com/arronlai/air-datepicker-amd.git"
   },
   "keywords": [
     "datepicker",
@@ -47,7 +47,7 @@
   "author": "arron <arron.laihongwei@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ARRON-LAI/air-datepicker/issues"
+    "url": "https://github.com/arronlai/air-datepicker-amd/issues"
   },
-  "homepage": "https://github.com/ARRON-LAI/air-datepicker/docs/"
+  "homepage": "https://arronlai.github.io/air-datepicker-amd/"
 }
