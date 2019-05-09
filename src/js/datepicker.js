@@ -1277,7 +1277,8 @@
             this.silent = false;
             this.views[this.currentView]._update();
             var sibling = this.$el.siblings('.a-datepicker').data('datepicker');
-            sibling.views[sibling.currentView]._updatePair();
+            if (typeof sibling !== 'undefined')
+                sibling.views[sibling.currentView]._updatePair();
         },
 
         _onTimeChange: function (e, h, m) {
