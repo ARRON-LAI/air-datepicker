@@ -1,8 +1,8 @@
 # Air Datepicker
 
-Forked from http://t1m0n.name/air-datepicker/, refined it to support AMD and fixed some bugs. 
-
 Lightweight customizable cross-browser jQuery datepicker, built with es5 and css-flexbox. Works in all modern desktop and mobile browsers (tested on Android 4.4+ and iOS8+).
+
+Forked from http://t1m0n.name/air-datepicker/, refined it to support AMD and fixed some bugs. 
 
 ![air datepicker image](https://github.com/t1m0n/air-datepicker/raw/master/docs/img/promo-img-time.png)
 
