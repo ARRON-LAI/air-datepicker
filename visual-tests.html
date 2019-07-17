@@ -26,7 +26,7 @@
     <body>
         <div class="v-log" id="v-log"></div>
         <div class="visual-tests">
-            <article>
+            <!-- <article>
                 <h1>Basic</h1>
                 <div class="row">
                     <div class="vt-tile">
@@ -106,7 +106,30 @@
                     </div>
                 </div>
             </article>
-
+ -->
+            <article>
+                <h1>Pair datepicker</h1>
+                <div class="row">
+                    <div class="vt-tile">
+                        <h2>{pair: true}</h2>
+                        <input id="pdp-1"/>
+                        <script type="text/javascript">
+                            $('#pdp-1').datepicker({
+                                pair: true,
+                            })
+                        </script>
+                    </div>
+                    <div class="vt-tile">
+                        <h2>{pair: true}</h2>
+                        <input id="pdp-2"/>
+                        <script type="text/javascript">
+                            $('#pdp-2').datepicker({
+                                pair: true
+                            })
+                        </script>
+                    </div>
+                </div>
+            </article>
         </div>
     </body>
 </html>
