@@ -411,6 +411,7 @@
 				inst2.clear();
 			}
 			if (dates1.length !== dates2.length) {
+				console.log(this._findDiffDate(dates1, dates2));
 				inst2.selectDate(this._findDiffDate(dates1, dates2));
 			}
 		},
