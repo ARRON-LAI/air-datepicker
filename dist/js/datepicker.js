@@ -285,7 +285,7 @@
         _initPairDP: function() {
             const $left = $('<div class="a-datepicker a-single left"></div>'),
                 $right = $('<div class="a-datepicker a-single right"></div>'),
-                opts = this.opts
+                opts = this.opts;
             this.$datepicker.append($left);
             this.$datepicker.append($right);
             opts.pair = false;
