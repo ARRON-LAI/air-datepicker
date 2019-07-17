@@ -1,11 +1,14 @@
 {
   "name": "air-datepicker-amd",
-  "version": "2.4.1",
+  "version": "3.0.0-alpha",
   "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
     "autoprefixer": "^6.1.0",
     "browserify": "^13.0.0",
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^8.0.0",
     "gulp-clone": "^1.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-gzip": "^1.2.0",
@@ -49,5 +52,5 @@
   "bugs": {
     "url": "https://github.com/arronlai/air-datepicker-amd/issues"
   },
-  "homepage": "https://arronlai.github.io/air-datepicker-amd/"
+  "homepage": "https://arronlai.com/air-datepicker-amd/"
 }

@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     clone = require('gulp-clone'),
     wrap = require('gulp-wrap'),
     concat = require('gulp-concat');
+const babel = require('gulp-babel');
 
 module.exports = function () {
     var stream = gulp.src([
@@ -19,6 +20,9 @@ module.exports = function () {
         .pipe(gulp.dest('dist/js'));
 
     stream.pipe(clone())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(uglify())
         .pipe(rename('datepicker.min.js'))
         .pipe(gulp.dest('dist/js'))

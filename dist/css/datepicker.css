@@ -261,6 +261,19 @@
   .datepicker--body.active {
     display: block; }
 
+.pair-datepicker {
+  width: auto;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px; }
+  .pair-datepicker .datepicker {
+    border-radius: 0;
+    border: 0; }
+  .pair-datepicker .datepicker--nav-action.-disabled- {
+    visibility: visible;
+    cursor: not-allowed;
+    background-color: inherit; }
+
 .datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade- {
   color: #dedede; }
   .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover {

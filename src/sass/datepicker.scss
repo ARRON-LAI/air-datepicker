@@ -147,3 +147,25 @@ $pointerHalfSize: $datepickerPointerSize / 2 - 1;
     display: block;
   }
 }
+
+// Pair Datepicker
+//--------------------------------------------------
+.pair-datepicker {
+  width: auto;
+  display: flex;
+  border-radius: $datepickerBorderRadius;
+  
+  .datepicker {
+    border-radius: 0;
+    border: 0;
+  }
+
+  .datepicker--nav-action {
+  
+    &.-disabled- {
+      visibility: visible;
+      cursor: not-allowed;
+      background-color: inherit;
+    }
+  }
+}
