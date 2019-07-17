@@ -298,10 +298,9 @@
 				opts = this._deepCopy(this.opts);
 			this
 				.$datepicker
-				.append($left);
-			this
-				.$datepicker
-				.append($right);
+				.append($left)
+				.append($right)
+				.addClass('pair-datepicker')
 
 			/* 
 			Change configuration here:
@@ -671,72 +670,70 @@
 		},
 
 		formatDate: function (string, date) {
-			date = date || this.date;
-			var result = string,
-				boundary = this._getWordBoundaryRegExp,
-				locale = this.loc,
-				leadingZero = datepicker.getLeadingZeroNum,
-				decade = datepicker.getDecade(date),
-				d = datepicker.getParsedDate(date),
-				fullHours = d.fullHours,
-				hours = d.hours,
-				ampm = string.match(boundary('aa')) || string.match(boundary('AA')),
-				dayPeriod = 'am',
-				replacer = this._replacer,
-				validHours;
+            date = date || this.date;
+            var result = string,
+                boundary = this._getWordBoundaryRegExp,
+                locale = this.loc,
+                leadingZero = datepicker.getLeadingZeroNum,
+                decade = datepicker.getDecade(date),
+                d = datepicker.getParsedDate(date),
+                fullHours = d.fullHours,
+                hours = d.hours,
+                ampm = string.match(boundary('aa')) || string.match(boundary('AA')),
+                dayPeriod = 'am',
+                replacer = this._replacer,
+                validHours;
 
-			if (this.opts.timepicker && this.timepicker && ampm) {
-				validHours = this
-					.timepicker
-					._getValidHoursFromDate(date, ampm);
-				fullHours = leadingZero(validHours.hours);
-				hours = validHours.hours;
-				dayPeriod = validHours.dayPeriod;
-			}
+            if (this.opts.timepicker && this.timepicker && ampm) {
+                validHours = this.timepicker._getValidHoursFromDate(date, ampm);
+                fullHours = leadingZero(validHours.hours);
+                hours = validHours.hours;
+                dayPeriod = validHours.dayPeriod;
+            }
 
-			switch (true) {
-				case / @ /.test(result):
-					result = result.replace(/@/, date.getTime());
-				case / aa /.test(result):
-					result = replacer(result, boundary('aa'), dayPeriod);
-				case / AA /.test(result):
-					result = replacer(result, boundary('AA'), dayPeriod.toUpperCase());
-				case / dd /.test(result):
-					result = replacer(result, boundary('dd'), d.fullDate);
-				case / d /.test(result):
-					result = replacer(result, boundary('d'), d.date);
-				case / DD /.test(result):
-					result = replacer(result, boundary('DD'), locale.days[d.day]);
-				case / D /.test(result):
-					result = replacer(result, boundary('D'), locale.daysShort[d.day]);
-				case / mm /.test(result):
-					result = replacer(result, boundary('mm'), d.fullMonth);
-				case / m /.test(result):
-					result = replacer(result, boundary('m'), d.month + 1);
-				case / MM /.test(result):
-					result = replacer(result, boundary('MM'), this.loc.months[d.month]);
-				case / M /.test(result):
-					result = replacer(result, boundary('M'), locale.monthsShort[d.month]);
-				case / ii /.test(result):
-					result = replacer(result, boundary('ii'), d.fullMinutes);
-				case / i /.test(result):
-					result = replacer(result, boundary('i'), d.minutes);
-				case / hh /.test(result):
-					result = replacer(result, boundary('hh'), fullHours);
-				case / h /.test(result):
-					result = replacer(result, boundary('h'), hours);
-				case / yyyy /.test(result):
-					result = replacer(result, boundary('yyyy'), d.year);
-				case / yyyy1 /.test(result):
-					result = replacer(result, boundary('yyyy1'), decade[0]);
-				case / yyyy2 /.test(result):
-					result = replacer(result, boundary('yyyy2'), decade[1]);
-				case / yy /.test(result):
-					result = replacer(result, boundary('yy'), d.year.toString().slice(-2));
-			}
+            switch (true) {
+                case /@/.test(result):
+                    result = result.replace(/@/, date.getTime());
+                case /aa/.test(result):
+                    result = replacer(result, boundary('aa'), dayPeriod);
+                case /AA/.test(result):
+                    result = replacer(result, boundary('AA'), dayPeriod.toUpperCase());
+                case /dd/.test(result):
+                    result = replacer(result, boundary('dd'), d.fullDate);
+                case /d/.test(result):
+                    result = replacer(result, boundary('d'), d.date);
+                case /DD/.test(result):
+                    result = replacer(result, boundary('DD'), locale.days[d.day]);
+                case /D/.test(result):
+                    result = replacer(result, boundary('D'), locale.daysShort[d.day]);
+                case /mm/.test(result):
+                    result = replacer(result, boundary('mm'), d.fullMonth);
+                case /m/.test(result):
+                    result = replacer(result, boundary('m'), d.month + 1);
+                case /MM/.test(result):
+                    result = replacer(result, boundary('MM'), this.loc.months[d.month]);
+                case /M/.test(result):
+                    result = replacer(result, boundary('M'), locale.monthsShort[d.month]);
+                case /ii/.test(result):
+                    result = replacer(result, boundary('ii'), d.fullMinutes);
+                case /i/.test(result):
+                    result = replacer(result, boundary('i'), d.minutes);
+                case /hh/.test(result):
+                    result = replacer(result, boundary('hh'), fullHours);
+                case /h/.test(result):
+                    result = replacer(result, boundary('h'), hours);
+                case /yyyy/.test(result):
+                    result = replacer(result, boundary('yyyy'), d.year);
+                case /yyyy1/.test(result):
+                    result = replacer(result, boundary('yyyy1'), decade[0]);
+                case /yyyy2/.test(result):
+                    result = replacer(result, boundary('yyyy2'), decade[1]);
+                case /yy/.test(result):
+                    result = replacer(result, boundary('yy'), d.year.toString().slice(-2));
+            }
 
-			return result;
-		},
+            return result;
+        },
 
 		_replacer: function (str, reg, data) {
 			return str.replace(reg, function (match, p1, p2, p3) {

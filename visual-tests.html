@@ -7,7 +7,13 @@
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="dist/js/datepicker.js"></script>
 	<link rel="stylesheet" href="dist/css/datepicker.css" />
-	<link rel="stylesheet" href="docs/css/style.css" />
+    <link rel="stylesheet" href="docs/css/style.css" />
+    
+    <style>
+        .pair-dp-wrapper {
+            margin-bottom: 200px;
+        }
+    </style>
 	<script type="text/javascript">
 		var log;
 
@@ -23,7 +29,7 @@
 		$(function () {
 			log = logger('#v-log');
 		})
-	</script>
+    </script>
 </head>
 
 <body>
@@ -110,7 +116,7 @@
                 </div>
             </article>
 
-		<article>
+		<article class="pair-dp-wrapper">
 			<h1>Pair datepicker</h1>
 			<div class="row">
 				<div class="vt-tile">
@@ -122,7 +128,9 @@
 							range: true,
 							navTitles: {
 								days: 'MM yyyy',
-							},
+                            },
+                            multipleDatesSeparator: ' to ',
+                            autoClose: true                   
 						})
 					</script>
 				</div>
@@ -134,7 +142,9 @@
 							pair: true,
 							navTitles: {
 								days: 'MM yyyy',
-							},
+                            },
+                            multipleDatesSeparator: ' to ',
+                            autoClose: true                   
 						})
 					</script>
 				</div>
