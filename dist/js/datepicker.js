@@ -8,7 +8,7 @@
 		factory(jQuery);
 	}
 }(function ($) {
-	var VERSION = '2.4.2',
+	var VERSION = '3.0.0-alpha',
 		pluginName = 'datepicker',
 		autoInitSelector = '.datepicker-here',
 		$body,

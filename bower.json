@@ -1,8 +1,8 @@
 {
   "name": "air-datepicker",
-  "version": "2.4.2",
+  "version": "3.0.0-alpha",
   "authors": [
-    "t1m0n <t1m0n.tr@gmail.com>"
+    "arron <arron.laihongwei@gmail.com>"
   ],
   "description": "A lightweight, customizable, powerful jQuery datepicker",
   "main": [
