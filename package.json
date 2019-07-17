@@ -2,10 +2,13 @@
   "name": "air-datepicker-amd",
   "version": "2.4.2",
   "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
     "autoprefixer": "^6.1.0",
     "browserify": "^13.0.0",
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^8.0.0",
     "gulp-clone": "^1.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-gzip": "^1.2.0",
