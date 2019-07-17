@@ -317,7 +317,7 @@
 			}
 			opts.onChangeMonth = function (month, year, inst) {
 				this._handleMonthChange(month, year, inst, _onChangeMonth);
-			}
+			}.bind(this);
 
 			//select date - sync with sibling and parent
 			
@@ -328,8 +328,15 @@
                 }
             }.bind(this);
 			
+			const sds = this._getStartDates(opts);
+			opts.startDate = sds[0];
 			$left.datepicker(opts);
+			opts.startDate = sds[1];
 			$right.datepicker(opts);
+			if (new Date(sds[0].getFullYear(), sds[0].getMonth() + 1, sds[0].getDate()) - sds[1] <= 0) {
+                $right.find('[data-action="prev"]').addClass('-disabled-');
+                $left.find('[data-action="next"]').addClass('-disabled-');
+			}
 		},
 
 		_deepCopy: function(obj) {
@@ -366,8 +373,8 @@
 					_onChangeMonth(month, year, inst);
 				}
 			} else {
-				inst.$el.find('[data-action="prev"]').removeClass(ClassName.DISABLED);
-				sibling.$el.find('[data-action="next"]').removeClass(ClassName.DISABLED);
+				inst.$el.find('[data-action="prev"]').removeClass('-disabled-');
+				sibling.$el.find('[data-action="next"]').removeClass('-disabled-');
 			}
 		},
 
@@ -422,11 +429,11 @@
 		_checkPrevNext: function (lf, rt) {
 			const rd = new Date(rt.date.getFullYear(), rt.date.getMonth(), 0);
 			if (rd.getFullYear() === lf.date.getFullYear() && rd.getMonth() === lf.date.getMonth()) {
-				rt.$el.find('[data-action="prev"]').addClass(ClassName.DISABLED);
-				lf.$el.find('[data-action="next"]').addClass(ClassName.DISABLED);
+				rt.$el.find('[data-action="prev"]').addClass('-disabled-');
+				lf.$el.find('[data-action="next"]').addClass('-disabled-');
 			} else {
-				rt.$el.find('[data-action="prev"]').removeClass(ClassName.DISABLED);
-				lf.$el.find('[data-action="next"]').removeClass(ClassName.DISABLED);
+				rt.$el.find('[data-action="prev"]').removeClass('-disabled-');
+				lf.$el.find('[data-action="next"]').removeClass('-disabled-');
 			}
 		},
 
@@ -632,7 +639,7 @@
 				case 'days':
 					this.date = new Date(d.year, d.month + 1, 1);
 					if (o.onChangeMonth)
-						o.onChangeMonth(this.parsedDate.month, this.parsedDate.year);
+						o.onChangeMonth(this.parsedDate.month, this.parsedDate.year, this);
 					break;
 				case 'months':
 					this.date = new Date(d.year + 1, d.month, 1);
@@ -654,7 +661,7 @@
 				case 'days':
 					this.date = new Date(d.year, d.month - 1, 1);
 					if (o.onChangeMonth)
-						o.onChangeMonth(this.parsedDate.month, this.parsedDate.year);
+						o.onChangeMonth(this.parsedDate.month, this.parsedDate.year, this);
 					break;
 				case 'months':
 					this.date = new Date(d.year - 1, d.month, 1);
@@ -1312,7 +1319,7 @@
 
 			focusedParsed = datepicker.getParsedDate(newDate);
 			if (monthChanged && o.onChangeMonth) {
-				o.onChangeMonth(focusedParsed.month, focusedParsed.year)
+				o.onChangeMonth(focusedParsed.month, focusedParsed.year, this)
 			}
 			if (yearChanged && o.onChangeYear) {
 				o.onChangeYear(focusedParsed.year)

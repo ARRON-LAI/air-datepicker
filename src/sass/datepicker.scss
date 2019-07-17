@@ -159,4 +159,13 @@ $pointerHalfSize: $datepickerPointerSize / 2 - 1;
     border-radius: 0;
     border: 0;
   }
+
+  .datepicker--nav-action {
+  
+    &.-disabled- {
+      visibility: visible;
+      cursor: not-allowed;
+      background-color: inherit;
+    }
+  }
 }

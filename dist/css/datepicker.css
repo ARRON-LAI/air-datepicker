@@ -269,6 +269,10 @@
   .pair-datepicker .datepicker {
     border-radius: 0;
     border: 0; }
+  .pair-datepicker .datepicker--nav-action.-disabled- {
+    visibility: visible;
+    cursor: not-allowed;
+    background-color: inherit; }
 
 .datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade- {
   color: #dedede; }
