@@ -282,20 +282,198 @@
 			}
 		},
 
+		/*
+		 * ------------------Pair Datepicker part start-------------------------------------------------------------------------
+		 * In order to view start end date at the same time, we may need a dp with two panels
+		 * These functions are use single clndr to simulate a pair clndr, and add events when interaction happens on partial dp
+		 * Add two <div> for pair dp and initialize them (left and right)
+		 * 
+		 * One more config is added 
+		 * @config
+		 * pair: false(default)
+		 */
 		_initPairDP: function () {
 			const $left = $('<div class="a-datepicker a-single left"></div>'),
 				$right = $('<div class="a-datepicker a-single right"></div>'),
-				opts = this.opts;
+				opts = this._deepCopy(this.opts);
 			this
 				.$datepicker
 				.append($left);
 			this
 				.$datepicker
 				.append($right);
+
+			/* 
+			Change configuration here:
+				1) set pair to false, 
+				2) functions to sync selections of two dp 
+			 */
 			opts.pair = false;
+			opts.moveToOtherMonthsOnSelect = false;
+
+			//on month change check if prev and next is still clickable
+			let _onChangeMonth;
+			if (Object.prototype.toString.call(opts.onChangeMonth) === '[object Function]') {
+				_onChangeMonth = JSON.parse(JSON.stringify(opts.onChangeMonth));
+			}
+			opts.onChangeMonth = function (month, year, inst) {
+				this._handleMonthChange(month, year, inst, _onChangeMonth);
+			}
+
+			//select date - sync with sibling and parent
+			
+			opts.onSelect = function (formattedDate, date, inst) {
+                this._alignDates(inst, inst.$el.siblings('.a-datepicker').data('datepicker'));
+                if (!opts.inline) {
+                    this._alignDates(inst, this);
+                }
+            }.bind(this);
+			
 			$left.datepicker(opts);
 			$right.datepicker(opts);
 		},
+
+		_deepCopy: function(obj) {
+			if (typeof obj !== 'object') {
+				return obj;
+			}
+			let copyObj = Array.isArray(obj) ? [] : {};
+			for(let key in obj) { 
+				if (typeof obj[key] === 'object' && Object.prototype.toString.call(obj[key]) !== '[object Date]') {
+					copyObj[key] = this._deepCopy(obj[key]);
+				} else {
+					copyObj[key] = obj[key];
+				}
+			}
+			return copyObj;
+		},
+
+		_handleMonthChange: function (month, year, inst, _onChangeMonth) {
+			const sibling = inst.$el.siblings('.a-datepicker').data('datepicker');
+			if (sibling.view === 'days') {
+				if (inst.$el.hasClass('left')) {
+					if (inst.date - sibling.date >= 0) {
+						sibling.date = new Date(inst.date.getFullYear(), inst.date.getMonth() + 1, inst.date.getDate());
+					}
+					this._checkPrevNext(inst, sibling);
+				}
+				if (inst.$el.hasClass('right')) {
+					if (inst.date - sibling.date <= 0) {
+						sibling.date = new Date(inst.date.getFullYear(), inst.date.getMonth() - 1, inst.date.getDate());
+					}
+					this._checkPrevNext(sibling, inst);
+				}
+				if (Object.prototype.toString.call(_onChangeMonth) === '[object, Function]') {
+					_onChangeMonth(month, year, inst);
+				}
+			} else {
+				inst.$el.find('[data-action="prev"]').removeClass(ClassName.DISABLED);
+				sibling.$el.find('[data-action="next"]').removeClass(ClassName.DISABLED);
+			}
+		},
+
+ 		/*
+         * Find the date that should be selected in inst2
+         */
+        _findDiffDate: function(dateArr1, dateArr2) {
+            const diff = [];
+            const same = [];
+            dateArr1.forEach(item => {
+                let find = false;
+                dateArr2.forEach(item2 => {
+                    if (item2 - item === 0) {
+                        find = true;
+                    }
+                });
+                if (find) {
+                    same.push(item);
+                } else {
+                    diff.push(item);
+                }
+            });
+            if (dateArr1.length > dateArr2.length) {
+                return diff;
+            }
+            if (same.length > 0) {
+                return same;
+            }
+            return diff;
+		},
+		
+		/*
+		 * @param inst - jquery object (datepicker instance)
+		 * Align inst2's dates as inst1
+		 */
+		_alignDates: function (inst1, inst2) {
+			const dates1 = inst1.selectedDates,
+				dates2 = inst2.selectedDates;
+			if (dates1.length === 0) {
+				inst2.clear();
+			}
+			if (dates1.length !== dates2.length) {
+				inst2.selectDate(this._findDiffDate(dates1, dates2));
+			}
+		},
+
+		/*
+		 * @param lf - left inst of Datepicker, rt right inst of Datepicker
+		 * Check if the two instance shows adjacent two month and change the classname of nex/prev button
+		 */
+		_checkPrevNext: function (lf, rt) {
+			const rd = new Date(rt.date.getFullYear(), rt.date.getMonth(), 0);
+			if (rd.getFullYear() === lf.date.getFullYear() && rd.getMonth() === lf.date.getMonth()) {
+				rt.$el.find('[data-action="prev"]').addClass(ClassName.DISABLED);
+				lf.$el.find('[data-action="next"]').addClass(ClassName.DISABLED);
+			} else {
+				rt.$el.find('[data-action="prev"]').removeClass(ClassName.DISABLED);
+				lf.$el.find('[data-action="next"]').removeClass(ClassName.DISABLED);
+			}
+		},
+
+		/*
+		 * @param config - config object to init Datepicker
+		 * get startDates from users configuration, handle different type of config
+		 */
+		_getStartDates: function (config) {
+			let sd1, sd2;
+			if (config.startDates && Array.isArray(config.startDates)) {
+				/*
+				 * User set start date and end date
+				 * Sort the date array and use as start/end date
+				 */
+				if (config.startDates.length >= 2) {
+					config.startDates.sort((a, b) => {
+						return a - b;
+					});
+					sd1 = config.startDates[0];
+					sd1 = new Date(sd1.getFullYear(), sd1.getMonth(), sd1.getDate());
+					sd2 = config.startDates[1];
+					sd2 = new Date(sd2.getFullYear(), sd2.getMonth(), sd2.getDate());
+				} else if (config.startDates.length === 1) {
+					/*
+					 * User only set one date
+					 * Use it as start date and set the next day as end date
+					 */
+					sd1 = config.startDates[0];
+					sd1 = new Date(sd1.getFullYear(), sd1.getMonth(), sd1.getDate());
+					sd2 = new Date(sd1.getFullYear(), sd1.getMonth() + 1, sd1.getDate());
+				}
+			}
+			if (!sd1) {
+				/*
+				 * User never set start dates
+				 * Use today as start date and set the next month as end date
+				 */
+				sd1 = new Date();
+				sd1 = new Date(sd1.getFullYear(), sd1.getMonth(), sd1.getDate());
+				sd2 = new Date(sd1.getFullYear(), sd1.getMonth() + 1, sd1.getDate());
+			}
+			return [sd1, sd2];
+		},		
+		/*
+		 * ------------------Pair Datepicker part end-------------------------------------------------------------------------
+		 */
+
 		_createShortCuts: function () {
 			this.minDate = this.opts.minDate ?
 				this.opts.minDate :
@@ -1721,21 +1899,17 @@
 			year: date.getFullYear(),
 			month: date.getMonth(),
 			fullMonth: (date.getMonth() + 1) < 10 ?
-				'0' + (date.getMonth() + 1) :
-				date.getMonth() + 1, // One based
+				'0' + (date.getMonth() + 1) : date.getMonth() + 1, // One based
 			date: date.getDate(),
 			fullDate: date.getDate() < 10 ?
-				'0' + date.getDate() :
-				date.getDate(),
+				'0' + date.getDate() : date.getDate(),
 			day: date.getDay(),
 			hours: date.getHours(),
 			fullHours: date.getHours() < 10 ?
-				'0' + date.getHours() :
-				date.getHours(),
+				'0' + date.getHours() : date.getHours(),
 			minutes: date.getMinutes(),
 			fullMinutes: date.getMinutes() < 10 ?
-				'0' + date.getMinutes() :
-				date.getMinutes()
+				'0' + date.getMinutes() : date.getMinutes()
 		}
 	};
 
