@@ -15,24 +15,24 @@ _jade.filters.code = function( block ) {
 };
 
 module.exports = {
-    ru: function () {
-        gulp.src('docs/jade/pages/index-ru.jade')
-            .pipe(plumber())
-            .pipe(jade({
-                data: {
-                    lang: 'ru'
-                }
-            }))
-            .pipe(gulp.dest('docs/'))
-    },
-    en: function () {
-        gulp.src('docs/jade/pages/index.jade')
-            .pipe(plumber())
-            .pipe(jade({
-                data: {
-                    lang: 'en'
-                }
-            }))
-            .pipe(gulp.dest('docs/'))
-    }
+    // ru: function () {
+    //     gulp.src('docs/jade/pages/index-ru.jade')
+    //         .pipe(plumber())
+    //         .pipe(jade({
+    //             data: {
+    //                 lang: 'ru'
+    //             }
+    //         }))
+    //         .pipe(gulp.dest('docs/'))
+    // },
+    // en: function () {
+    //     gulp.src('docs/jade/pages/index.jade')
+    //         .pipe(plumber())
+    //         .pipe(jade({
+    //             data: {
+    //                 lang: 'en'
+    //             }
+    //         }))
+    //         .pipe(gulp.dest('docs/'))
+    // }
 };
